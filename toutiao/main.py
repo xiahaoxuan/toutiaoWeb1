@@ -1,12 +1,34 @@
-from flask import Flask
+import os
+import sys
+import redis
 
-app = Flask(__name__)
+from flask import jsonify
+from . import create_app
+from settings.default import DefaultConfig
+from models.user import User
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(BASE_DIR, 'common'))
+
+
+app = create_app(DefaultConfig, enable_config_file=True)
+# redis_con = redis.Connection(host='localhost', port='6379', db=0)
 
 
 @app.route('/')
-def hello_world():
-    return 'Hello World!'
+def route_map():
+    """
+    主视图，返回所有视图
+    :return:
+    """
+    # ret = User.query.all()
+    # print(ret)
+    # 普通连接
+    # conn = redis.Redis(host="localhost", port=6379,)
+    # conn.set("x1", "hello", ex=50)  # ex代表seconds，px代表ms
+    # val = conn.get("x1")
+    # print(val)
 
-
-if __name__ == '__main__':
-    app.run()
+    # return 'ok'
+    rules_iterator = app.url_map.iter_rules()
+    return jsonify({rule.endpoint: rule.rule for rule in rules_iterator if rule.endpoint not in ('route_map', 'static')})
