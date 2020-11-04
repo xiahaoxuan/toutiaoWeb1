@@ -32,4 +32,9 @@ class DefaultConfig(object):
     DATACENTER_ID = 0
     WORKER_ID = 0
     SEQUENCE = 0
+    # 七牛云
+    QINIU_ACCESS_KEY = 'IRJpnGmt9BAqCeIwzX2PES5MCOqOE2ivHWWiaAsh'
+    QINIU_SECRET_KEY = 'ZySl4CPpGv5s5m68t1isIWreWlVwaC6RT3JEATdl'
+    QINIU_BUCKET_NAME = 'xhxtoutiao'
+    QINIU_DOMAIN = 'http://qj77f2lhq.hn-bkt.clouddn.com'
 
