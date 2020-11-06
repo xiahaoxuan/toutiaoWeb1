@@ -12,3 +12,5 @@ user_api.add_resource(passport.AuthorizationResource, '/v1_0/authorizations',
                       endpoint='Authorization')
 user_api.add_resource(profile.PhotoResource, '/v1_0/user/photo',
                       endpoint='Photo')
+user_api.add_resource(profile.CurrentUserResource, '/v1_0/user',
+                      endpoint='CurrentUser')

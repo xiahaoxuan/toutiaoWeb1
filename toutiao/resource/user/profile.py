@@ -5,6 +5,24 @@ from utils.decorators import login_required
 from utils import parser, qiuniu_storage
 from models.user import User
 from models import db
+from cache import user as cache_user
+from cache import statistic
+
+
+class CurrentUserResource(Resource):
+    method_decorators = [login_required]
+
+    def get(self):
+        """
+        获取当前用户自己的数据
+        :return:
+        """
+        user_id = g.user_id
+        user_data = cache_user.UserProfileCache(user_id).get()
+        user_data['id'] = user_id
+        user_data['art_count'] = statistic.UserArticleCountStorage.get(user_id)
+        user_data['following_count'] = statistic.UserFollowingCountStorage.get(user_id)
+        return user_data
 
 
 class PhotoResource(Resource):
